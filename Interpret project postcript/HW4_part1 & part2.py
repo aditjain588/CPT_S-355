@@ -4,10 +4,7 @@
 # The operand stack: define the operand stack and its operations
 opstack = []  #assuming top of the stack is the end of the list
 
-# Now define the HELPER FUNCTIONS to push and pop values on the opstack 
-# Remember that there is a Postscript operator called "pop" so we choose 
-# different names for these functions.
-# Recall that `pass` in Python is a no-op: replace it with your code.
+# Define the HELPER FUNCTIONS to push and pop values on the opstack 
 
 def opPop():
     if (len(opstack)>0):
@@ -44,11 +41,6 @@ def dictPush(d):
     dictstack.append(d)
     return dictstack
     #dictPush pushes the dictionary ‘d’ to the dictstack. 
-    #Note that, your interpreter will call dictPush only when Postscript 
-    #“begin” operator is called. “begin” should pop the empty dictionary from 
-    #the opstack and push it onto the dictstack by calling dictPush.
-
-
 
 def define(name, value):
     if(len(dictstack)>=1):
@@ -65,10 +57,6 @@ def define(name, value):
         dictPush(d)
     return dictstack
     #add name:value pair to the top dictionary in the dictionary stack. 
-    #Keep the '/' in the name constant. 
-    #Your psDef function should pop the name and value from operand stack and 
-    #call the “define” function.
-
 
 def lookup(name):
     name='/'+name
@@ -79,13 +67,12 @@ def lookup(name):
                 return (v)
     print("Error: Name",name ," not found")
     # return the value associated with name
-    # What is your design decision about what to do when there is no definition for “name”? If “name” is not defined, your program should not break, but should give an appropriate error message.
+ 
 
 
 #--------------------------- 10% -------------------------------------
 # Arithmetic and comparison operators: add, sub, mul, eq, lt, gt 
-# Make sure to check the operand stack has the correct number of parameters 
-# and types of the parameters are correct.
+
 def add():
     if len(opstack) > 1:
         op2 = opPop()
@@ -352,9 +339,7 @@ def stack():
 
 #--------------------------- 20% -------------------------------------
 # Define the dictionary manipulation operators: psDict, begin, end, psDef
-# name the function for the def operator psDef because def is reserved in Python. Similarly, call the function for dict operator as psDict.
-# Note: The psDef operator will pop the value and name from the opstack and call your own "define" operator (pass those values as parameters).
-# Note that psDef()won't have any parameters.
+
 def psDict():
     opPop()
     opPush({})
@@ -421,8 +406,6 @@ def groupMatch(it):
         if c == '}':
             return {'codearray':res}
         elif c=='{':
-            # Note how we use a recursive call to group the tokens inside the
-            # inner matching parenthesis.
             # Once the recursive call returns the code-array for the inner 
             # parenthesis, it will be appended to the list we are constructing 
             # as a whole.
@@ -445,10 +428,6 @@ def groupMatch(it):
     return False
 
 
-# COMPLETE THIS FUNCTION
-# Function to parse a list of tokens and arrange the tokens between { and } braces 
-# as code-arrays.
-# Properly nested parentheses are arranged into a list of properly nested dictionaries.
 def parse(L):
     res = []
     it = iter(L)
